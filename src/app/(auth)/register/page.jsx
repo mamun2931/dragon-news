@@ -1,6 +1,6 @@
 "use client";
 import { Check, Eye, EyeSlash } from '@gravity-ui/icons';
-import { Button, Description, FieldError, Form, Input, InputGroup, Label, TextField } from '@heroui/react';
+import { Button, Description, FieldError, Form, Input, InputGroup, Label, TextField, toast } from '@heroui/react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,9 +21,9 @@ const RegisterPage = () => {
             callbackURL: "/"
         });
         if (error) {
-             alert("Signup Error: " + error.message);
+             toast.error("Signup Error: " + error.message);
         } else {
-            alert("Signup Successfully create your account");
+            toast.success("Signup Successfully create your account");
         }
 
         // console.log(error);
@@ -91,6 +91,18 @@ const RegisterPage = () => {
                         type={isVisible ? "text" : "password"}
                         {...register("password")}
                         placeholder='Enter your password'
+                                       validate={(value) => {
+                if (value.length < 8) {
+                    return "Password must be at least 8 characters";
+                }
+                if (!/[A-Z]/.test(value)) {
+                    return "Password must contain at least one uppercase letter";
+                }
+                if (!/[0-9]/.test(value)) {
+                    return "Password must contain at least one number";
+                }
+                return null;
+                }}
                         />
                         <InputGroup.Suffix className="pr-0">
                         <Button
@@ -104,10 +116,7 @@ const RegisterPage = () => {
                         </Button>
                         </InputGroup.Suffix>
                     </InputGroup>
-                    <Description className="text-xs text-gray-500 mt-1">
-                            Min 8 chars, 1 uppercase, 1 number
-                        </Description>
-                    
+                    <FieldError />
                     </TextField>
 
 
