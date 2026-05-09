@@ -8,8 +8,7 @@ export async function proxy(request) {
     const session = await auth.api.getSession({
         headers: await headers()
     })
-
-    const isLoggedIn = true
+    
     if (session) {
        return NextResponse.next()
     }
