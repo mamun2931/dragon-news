@@ -2,6 +2,7 @@
 import { authClient } from '@/lib/auth-client';
 import { Check, Eye, EyeSlash } from '@gravity-ui/icons';
 import { Button, FieldError, Form, Input, InputGroup, Label, TextField, toast } from '@heroui/react';
+import { a } from 'framer-motion/client';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -19,9 +20,9 @@ const LoginPage = () => {
     });
 
     if (error) {
-      toast.error("Login Error: " + error.message);
+      alert("Login Error: " + error.message);
     } else {
-      toast.success("Login Successfully");
+      alert("Login Successfully");
     }
   };
 
